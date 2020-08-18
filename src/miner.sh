@@ -40,7 +40,7 @@ rm -f *
 
 # get pocket analysis files
 babel -ipdb ${initialPDB} -omol2 receptor.mol2 &> /dev/null
-pymol -cqr $pml | tee receptor.log
+pymol -cqr $pml &> receptor.log
 coorx=`grep "CENTER X" receptor.log | grep -v PyMOL | awk '{print $4}'`
 coory=`grep "CENTER Y" receptor.log | grep -v PyMOL | awk '{print $4}'`
 coorz=`grep "CENTER Z" receptor.log | grep -v PyMOL | awk '{print $4}'`
