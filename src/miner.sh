@@ -53,7 +53,7 @@ echo "sed -i 's/ZZ/${coorz}/g' receptor.prm" | bash
 cat ${workingDIR}/receptor.prm 
 
 # geometerical detect cavities
-rbcavity -W -d -r ${workingDIR}/receptor.prm | tee cavities.out
+rbcavity -W -d -r ${workingDIR}/receptor.prm &> cavities.out
 
 # store cavity center
 cavx=${coorx}
@@ -96,9 +96,7 @@ then
 	paste <(awk -v model=${cavityID} -v x=${cavx} -v y=${cavy} -v z=${cavz} -v rna=${rna} '{print rna, model, sqrt(($2-x)*($2-x)+($3-y)*($3-y)+($4-z)*($4-z))}' cavity_centers.txt) <(cat raw_feature.txt | grep -v 'atmid') >> ${featureFile}
 	
 	# compute druggability
-	python ${predictPy} ${model} ${featureFile} ${cavityFile} ${outFile} 1 #&> /dev/null
+	python ${predictPy} ${model} ${featureFile} ${cavityFile} ${outFile} 1 &> /dev/null
 	cat ${outFile}
 	
-    # clean up
-    # rm cavity_decoy.xyz cavity_decoy.pdb cavities.out receptor.mol2
 fi
