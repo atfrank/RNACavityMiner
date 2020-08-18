@@ -25,7 +25,7 @@ cd ..
 cp RNAPosers/bin/featurize bin/
 rm -rf RNAPosers
 ```
-####Python Modules
+#### Python Modules
 ```
 conda create -n cavityminer --file environment.yml
 conda activate cavityminer
