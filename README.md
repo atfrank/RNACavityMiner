@@ -1,19 +1,19 @@
-
-# CavityPoser
-CavityPoser: Mining For Bound-Like Conformations of RNA Using a Binding Cavity Screening Approach.
+# RNACavityMiner
+RNACavityMiner: Classifiers to Mine For Druggable Binding Cavity in RNA
 
 ## Prerequisite
-* Python and Python packages: numpy, pandas and scikit-learn v0.21.2
-
 * [openbabel](http://openbabel.org/wiki/Category:Installation)
 
-* [rdock](http://rdock.sourceforge.net/installation/)
+* [RxDock](https://www.rxdock.org/)
 
 * [PyMOL](https://pymol.org/). For first time PyMOL users: you will need a [PyMOL license file](https://pymol.org/2/buy.html?q=buy), as PyMOL is a commercial software.
+
+* see `environment.yml`
 
 ## Quick Start
 
 ### Install Dependencies
+#### RNAPosers
 ```
 git clone git@github.com:karoka/CavityPoser.git
 cd cavity_mining/
@@ -25,33 +25,30 @@ cd ..
 cp RNAPosers/bin/featurize bin/
 rm -rf RNAPosers
 ```
+####Python Modules
+```
+conda create -n cavityminer --file environment.yml
+conda activate cavityminer
+```
 
-### Using CavityPoser
-Main script is `src/cavityPoser.sh`. It requires a pdb file containing RNA 3D structure as input.
+
+### Using RNACavityMiner
+Main script is `src/miner.sh`. It requires a pdb file containing RNA 3D structure as input.
 Example:
 ```
 cd test/
-./../src/cavityPoser.sh receptor.pdb
+./../src/miner.sh receptor.pdb
 ```
 The predicted cavities and their corresponding scores are written in file `receptor/predicted_pockets.txt`.
 
 #### Output
-| pdb          | tag   | cavityID | x     | y     | z      | pred_MLP | pred_XGB | pred_RF |
-|--------------|-------|----------|-------|-------|--------|----------|----------|---------|
-| receptor.pdb | decoy | 1        | 2.835 | 0.475 | -0.482 | 1.000    | 0.886    | 0.705   |
+| pdb          | tag   | cavityID | x     | y     | z      | pred_MLP | pred_XGB | pred_RF | pred_LR | pred_Extra|
+|--------------|-------|----------|-------|-------|--------|----------|----------|---------|----------|----------|
+| receptor.pdb | decoy | 1        | 2.835 | 0.475 | -0.482 | 1.000    | 0.886    | 0.705   | 1.000    | 0.886    |
 
 #### Optional Arguments
 ```
-./../src/cavityPoser.sh
-```
-It takes the following arguments:
-*  `path-to-pdb-file`: input pdb file to perform cavity mining on.
-* `scalar`: 1 or 0, corresponds to different version of models (1: scalar; 0: vector). Currently the scalar version is faster and has better performance. Default: 1
-* `rdock-param-file`: rdock parameter file. 3 parameter files are provided under `params/` folder. Default: `blind_docking_de_novo.prm`.
-* `working-dir`: working directory. Default: a sub-directory in current working directory. The sub-directory is named as the input pdb-file name without extension. e.g. If the input filename is `receptor.pdb`, then a folder named `receptor/` will be created if not existed in current working directory and all operations will be performed there.
-* `tag`: an arbitrary identifier of the structure. Default:   "decoy".
-* `output-file`: output file path and name.
 
 ## Publications
 
-* `RNAPosers`(In revision): Chhabra, Sahil, Jingru Xie, and Aaron T. Frank. "RNAPosers: Machine Learning Classifiers For RNA-Ligand Poses." bioRxiv (2019): 702449.
+* (In preparation): Jingru Xie, and Aaron T. Frank. "Mining For Druggable Cavities in RNA"
