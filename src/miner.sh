@@ -38,7 +38,7 @@ model=${DIRMODEL}/models.pkl
 workingDIR="`pwd`/${rna}"
 mkdir -p ${workingDIR}
 cd ${workingDIR}
-outFile=${workingDIR}/predicted_pockets.txt
+outFile=${workingDIR}/predicted_cavities.txt
 featureFile=${workingDIR}/features.csv
 cavityFile=${workingDIR}/cavity_centers.txt
 cavityID="none"

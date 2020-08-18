@@ -39,7 +39,7 @@ Example:
 cd test/
 ./../src/miner.sh receptor.pdb
 ```
-The predicted cavities and their corresponding scores are written in file `receptor/predicted_pockets.txt`.
+The predicted cavities and their corresponding scores are written in file `receptor/predicted_cavities.txt`.
 
 #### Output
 | pdb          | tag   | cavityID | x     | y     | z      | pred_MLP | pred_XGB | pred_RF | pred_LR | pred_Extra|
