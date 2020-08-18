@@ -1,0 +1,56 @@
+***********************************************
+The RxDock molecular docking program is licensed under GNU LGPL version 3.
+RxDock is maintained by Vedran Miletić, Patrik Nikolić, and Luka Vretenar.
+Visit https://www.rxdock.org/ for more information.
+Executable:	rbcavity/0.1.0
+Library:	librxdock.so/0.1.0
+RBT_ROOT:	/pylon5/mc5pksp/smaltr/rnacavityminer/.conda/envs/rnacavityminer/share/rxdock-2013.1.1_148c5bd1-0
+RBT_HOME:	/pylon5/mc5pksp/smaltr/rnacavityminer
+Current dir:	/pylon5/mc5pksp/smaltr/rnacavityminer/RNACavityMiner/test/1ANR_1
+Date:		Mon Aug 17 19:07:20 2020
+***********************************************
+Command line arguments:
+-r /pylon5/mc5pksp/smaltr/rnacavityminer/RNACavityMiner/test/1ANR_1/receptor.prm
+-W
+-d
+
+MAPPER
+CENTER	(-4,0,5)
+CLASS	RbtSphereSiteMapper
+ENABLED	TRUE
+GRIDSTEP	0.5
+LARGE_SPHERE	5.5
+MAX_CAVITIES	50
+MIN_VOLUME	25
+NAME	MAPPER
+RADIUS	100
+SMALL_SPHERE	1.5
+TRACE	0
+VOL_INCR	1.0
+
+
+DOCKING SITE
+Total volume 2256.5 A^3
+Cavity #1	Size=13429 points; Vol=1678.62 A^3; Min=(-23.5,-12,-8); Max=(9.5,23,16); Center=(-6.07942,7.04911,2.13627); Extent=(33,35,24)
+Cavity #2	Size=1107 points; Vol=138.375 A^3; Min=(-9.5,-15,6); Max=(-1.5,-8.5,17); Center=(-5.42276,-12.14,12.1793); Extent=(8,6.5,11)
+Cavity #3	Size=795 points; Vol=99.375 A^3; Min=(-8.5,-9.5,4.5); Max=(2.5,-2,11); Center=(-2.88742,-5.34025,7.36981); Extent=(11,7.5,6.5)
+Cavity #4	Size=646 points; Vol=80.75 A^3; Min=(-14.5,-0.5,10); Max=(-8.5,5.5,17); Center=(-11.6006,2.03483,13.6478); Extent=(6,6,7)
+Cavity #5	Size=390 points; Vol=48.75 A^3; Min=(-22,-17,-3); Max=(-18.5,-11,1.5); Center=(-20.3769,-13.9949,-0.739744); Extent=(3.5,6,4.5)
+Cavity #6	Size=358 points; Vol=44.75 A^3; Min=(-17.5,0.5,5); Max=(-12.5,5,9.5); Center=(-14.8855,2.64665,7.49162); Extent=(5,4.5,4.5)
+Cavity #7	Size=313 points; Vol=39.125 A^3; Min=(-10,6,14.5); Max=(-5,10,20); Center=(-7.61981,7.86422,17.3658); Extent=(5,4,5.5)
+Cavity #8	Size=303 points; Vol=37.875 A^3; Min=(-23.5,-2,5.5); Max=(-19,2.5,10); Center=(-21.1815,0.313531,7.67327); Extent=(4.5,4.5,4.5)
+Cavity #9	Size=295 points; Vol=36.875 A^3; Min=(-15.5,-10,13); Max=(-11,-6.5,18); Center=(-13.1898,-8.32373,15.6407); Extent=(4.5,3.5,5)
+Cavity #10	Size=208 points; Vol=26 A^3; Min=(3.5,1.5,11); Max=(6.5,6,14.5); Center=(5,3.75,12.75); Extent=(3,4.5,3.5)
+Cavity #11	Size=208 points; Vol=26 A^3; Min=(8,-4.5,3.5); Max=(11.5,-1.5,8); Center=(9.75,-3,5.75); Extent=(3.5,3,4.5)
+
+Cav = 13429; total = 13429
+Cav = 1107; total = 14536
+Cav = 795; total = 15331
+Cav = 646; total = 15977
+Cav = 390; total = 16367
+Cav = 358; total = 16725
+Cav = 313; total = 17038
+Cav = 303; total = 17341
+Cav = 295; total = 17636
+Cav = 208; total = 17844
+Cav = 208; total = 18052

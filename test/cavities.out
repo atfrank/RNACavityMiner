@@ -1,0 +1,16 @@
+***********************************************
+The rDock program is licensed under GNU-LGPLv3.0. http://rdock.sourceforge.net/
+Executable:	rbcavity ($Id: //depot/dev/client3/rdock/2013.1/src/exe/rbcavity.cxx#3 $)
+Library:	libRbt.so/2013.1/901 2013/11/27
+RBT_ROOT:	/export/apps/CentOS7/rdock/src/rDock_2013.1_src
+RBT_HOME:	/home/afrankz
+Current dir:	/home/afrankz/local_software/repo/RNACavityMiner/test
+Date:		Mon Aug 17 12:54:33 2020
+***********************************************
+
+Command line arguments:
+-r /home/afrankz/local_software/repo/RNACavityMiner/test/3E5C_RNA.pdb/receptor.prm
+-was
+-d
+RBT_FILE_READ_ERROR at ../src/lib/RbtBaseFileSource.cxx, line 233
+Error opening /export/apps/CentOS7/rdock/src/rDock_2013.1_src/data/receptors//home/afrankz/local_software/repo/RNACavityMiner/test/3E5C_RNA.pdb/receptor.prm
