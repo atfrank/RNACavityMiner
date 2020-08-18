@@ -14,7 +14,7 @@ RNACavityMiner: Classifiers to Mine For Druggable Binding Cavity in RNA
 
 ## Quick Start
 ```
-git clone git@github.com:karoka/RNACavityMiner.git
+git clone https://github.com/atfrank/RNACavityMiner.git
 cd RNACavityMiner/
 ```
 ### Install Dependencies
