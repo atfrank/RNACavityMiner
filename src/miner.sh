@@ -50,7 +50,6 @@ cp ${rdockParam} receptor.prm
 echo "sed -i 's/XX/${coorx}/g' receptor.prm" | bash
 echo "sed -i 's/YY/${coory}/g' receptor.prm" | bash
 echo "sed -i 's/ZZ/${coorz}/g' receptor.prm" | bash
-cat ${workingDIR}/receptor.prm 
 
 # geometerical detect cavities
 rbcavity -W -d -r ${workingDIR}/receptor.prm &> cavities.out
@@ -78,7 +77,6 @@ then
     echo "TER" >> complex_cavity_decoy.pdb
     grep 'HETATM' cavity_decoy.pdb >> complex_cavity_decoy.pdb
     echo "END" >> complex_cavity_decoy.pdb
-    cat complex_cavity_decoy.pdb
 
     # featurize decoy cavity
 	${CAVITYMINER}/bin/featurize \
