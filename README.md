@@ -2,6 +2,8 @@
 RNACavityMiner: Classifiers to Mine For Druggable Binding Cavity in RNA
 
 ## Prerequisite
+* [GCC 8.2.0]()
+
 * [openbabel](http://openbabel.org/wiki/Category:Installation)
 
 * [RxDock](https://www.rxdock.org/)
@@ -11,12 +13,20 @@ RNACavityMiner: Classifiers to Mine For Druggable Binding Cavity in RNA
 * see `environment.yml`
 
 ## Quick Start
-
+```
+git clone git@github.com:karoka/RNACavityMiner.git
+cd RNACavityMiner/
+```
 ### Install Dependencies
+
+#### Python Modules
+```
+conda create -n cavityminer --file environment.yml
+conda activate cavityminer
+```
+
 #### RNAPosers
 ```
-git clone git@github.com:karoka/CavityPoser.git
-cd cavity_mining/
 git clone --depth=1 git@github.com:atfrank/RNAPosers.git
 cd RNAPosers/
 make clean
@@ -25,12 +35,6 @@ cd ..
 cp RNAPosers/bin/featurize bin/
 rm -rf RNAPosers
 ```
-#### Python Modules
-```
-conda create -n cavityminer --file environment.yml
-conda activate cavityminer
-```
-
 
 ### Using RNACavityMiner
 Main script is `src/miner.sh`. It requires a pdb file containing RNA 3D structure as input.
