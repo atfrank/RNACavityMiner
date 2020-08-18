@@ -23,6 +23,7 @@ cd RNACavityMiner/
 ```
 conda create -n cavityminer --file environment.yml -c conda-forge -c bioconda -c schrodinger
 conda activate cavityminer
+pip install --user scikit-learn==0.22.2.post1
 ```
 
 #### RNAPosers
@@ -40,6 +41,7 @@ rm -rf RNAPosers
 Main script is `src/miner.sh`. It requires a pdb file containing RNA 3D structure as input.
 Example:
 ```
+conda activate cavityminer
 export CAVITYMINER="/path/to/RNACavityMiner/"
 cd test/
 ./../src/miner.sh receptor.pdb
