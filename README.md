@@ -66,5 +66,6 @@ pdb,tag,cavityID,x,y,z,pred_MLP,pred_XGB,pred_RF,pred_LR,pred_Extra
 ## Publications
 * Jingru Xie, and Aaron T. Frank. "Mining For Druggable Cavities in RNA" (In preparation)
 
-## Data
-* [Dataset and code](10.5281/zenodo.4049068)
+## Data and ML-Code
+* [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4049068.svg)](https://doi.org/10.5281/zenodo.4049068)
+
