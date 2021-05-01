@@ -1,0 +1,12 @@
+package:
+  name: rnacavity_miner
+  version: 1.0.0
+
+build:
+  number: 1
+
+requirements:
+  run:
+    - python
+about:
+  summary: tool for mining ligandable cavities in RNA
