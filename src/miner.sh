@@ -51,16 +51,20 @@ echo "sed -i 's/XX/${coorx}/g' receptor.prm" | bash
 echo "sed -i 's/YY/${coory}/g' receptor.prm" | bash
 echo "sed -i 's/ZZ/${coorz}/g' receptor.prm" | bash
 
-# geometerical detect cavities
-rbcavity -W -d -r ${workingDIR}/receptor.prm &> cavities.out
+if [[ ! -f cavity_centers.txt ]]
+then
+	# geometerical detect cavities
+	rbcavity -W -d -r ${workingDIR}/receptor.prm &> cavities.out
 
-# store cavity center
-cavx=${coorx}
-cavy=${coory}
-cavz=${coorz}
+	# store cavity center
+	cavx=${coorx}
+	cavy=${coory}
+	cavz=${coorz}
 
-# create blind cavity centers
-cat cavities.out  | grep 'Center=' | sed 's/Center=/\nCenter=/g' | sed 's/Extent=/\nExtent=/g' | grep Center= | sed 's/(/( /g' | sed 's/)/ )/g' | sed 's/,/ /g' | awk '{print $2, $3, $4}' | tr ' ' '\n' | sed '3~3 s/$/\nMy Text/g' | tr '\n' ' ' | sed 's/My Text/\n/g' | sed '/^[[:space:]]*$/d' | awk '{printf "%s %4.3f %4.3f %4.3f\n", "C", $1,$2,$3}' > cavity_centers.txt
+	# create blind cavity centers
+	cat cavities.out  | grep 'Center=' | sed 's/Center=/\nCenter=/g' | sed 's/Extent=/\nExtent=/g' | grep Center= | sed 's/(/( /g' | sed 's/)/ )/g' | sed 's/,/ /g' | awk '{print $2, $3, $4}' | tr ' ' '\n' | sed '3~3 s/$/\nMy Text/g' | tr '\n' ' ' | sed 's/My Text/\n/g' | sed '/^[[:space:]]*$/d' | awk '{printf "%s %4.3f %4.3f %4.3f\n", "C", $1,$2,$3}' > cavity_centers.txt
+fi
+
 if [[ -s cavity_centers.txt ]]
 then
 	ncav=`wc -l cavity_centers.txt | awk '{print $1}'`
