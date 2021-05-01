@@ -1,12 +1,36 @@
-package:
-  name: rnacavity_miner
-  version: 1.0.0
+{% set version = "1.0.0" %}
 
+package:
+  name: rna_cavity_miner
+  version: {{ version }}
+
+source:
+  - git_url: https://github.com/atfrank/RNACavityMiner.git
+    git_depth: 1 # (Defaults to -1/not shallow)
+    folder: miner
+  - git_url: https://github.com/atfrank/RNAPosers.git
+    git_depth: 1 # (Defaults to -1/not shallow)
+    folder: poser
+  
+  
 build:
-  number: 1
+  noarch: python
+  number: 0
+  script: conda install --file miner/environment.yml -c conda-forge -c bioconda -c schrodinger
+  script: pip install --user scikit-learn==0.22.2.post1
 
 requirements:
+  host:
+    - python
+    - pip
+    - conda
   run:
     - python
+
+test:
+  imports:
+    - imagesize
+
 about:
-  summary: tool for mining ligandable cavities in RNA
+  summary: 'testing'
+ 
