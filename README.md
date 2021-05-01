@@ -38,13 +38,13 @@ rm -rf RNAPosers
 ```
 
 ### Using RNACavityMiner
-Main script is `src/miner.sh`. It requires a pdb file containing RNA 3D structure as input.
+Main script is `src/miner_grid.sh`. It requires a pdb file containing RNA 3D structure as input.
 Example:
 ```
 conda activate cavityminer
 export CAVITYMINER="/path/to/RNACavityMiner/"
 cd test/
-./../src/miner.sh 1ANR_1.pdb
+./../src/miner_grid.sh 1ANR_1.pdb
 ```
 The predicted cavities and their corresponding scores are written in file `receptor/predicted_cavities.txt`.
 
