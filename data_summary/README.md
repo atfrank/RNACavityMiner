@@ -4,9 +4,6 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>RNACavityMiner Dataset</title>
-  </head>
   <body>
     <h3 align="center" >Summary of data used to train and test RNACavityMiner</h3>
     <table  align="center" border="3" style="table-layout: auto width: 250px;">
