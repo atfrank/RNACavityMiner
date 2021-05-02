@@ -43,6 +43,7 @@ def generate_grid(rna, outname = "test", grid_size = 2, padding = 2.0, mindist =
                 # prune
                 cmd.remove("resn UNK and resi %s within %s of polymer"%(k, mindist))
                 cmd.remove("resn UNK and resi %s beyond %s of polymer"%(k, maxdist))
+                
 
     # write out grid file
     coor = "%s_grid.xyz"%(outname)
@@ -68,4 +69,4 @@ if __name__ == "__main__":
     # parse command line
     a = parser.parse_args()
     cmd.load(a.coord_in, "receptor")
-    generate_grid(rna = "receptor", outname = a.coord_out, grid_size = 2, padding = 2.0, mindist = 2.5, maxdist = 5.0, debug = False)
+    generate_grid(rna = "receptor", outname = a.coord_out, grid_size = 2.0, padding = 2.0, mindist = 2.5, maxdist = 5, debug = False)

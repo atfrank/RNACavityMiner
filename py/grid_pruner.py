@@ -24,6 +24,14 @@ def check_file(file):
             return False
 
 def prune_grid(rna, score_file, outname, cutoff = 0.99):
+    # make sure all atoms within an object occlude one another
+    cmd.flag("ignore", "none")
+
+    # use solvent-accessible surface with high sampling density
+    cmd.set('dot_solvent', 1)
+    cmd.set('dot_density', 3)
+    cmd.set('solvent_radius', 2.0)
+
     k = 1
     df = pd.read_csv(score_file, header = 0, sep = ",")
     means = df[['pred_MLP','pred_XGB','pred_RF','pred_LR','pred_Extra']].apply(np.mean, 'columns')
@@ -31,10 +39,16 @@ def prune_grid(rna, score_file, outname, cutoff = 0.99):
     
     for pred, pos in zip(df[['pred_MLP','pred_XGB','pred_RF','pred_LR','pred_Extra']].values, df[['x','y','z']].values):
         if np.mean(pred) > cutoff:
-            print(pred, pos, np.mean(pred))
-            cmd.pseudoatom("tmpPoint2", hetatm = 1, b = np.mean(pred), name="C", resn = "UNK", resi=k, chain="ZZ", pos= [pos[0], pos[1], pos[2]])
-            k += 1
-
+            # create tmp complex
+            cmd.pseudoatom("tmpPoint3", hetatm = 1, name="C", resn = "UNK", pos= [pos[0], pos[1], pos[2]])
+            cmd.create("complextmp", "%s tmpPoint3"%rna)
+            sasa = cmd.get_area('resn UNK and not polymer and complextmp')
+            cmd.delete("complextmp tmpPoint3")
+            if sasa < 30.0:
+                cmd.pseudoatom("tmpPoint", hetatm = 1, b = np.mean(pred), q = sasa, name="C", resn = "UNK", resi=k, chain="ZZ", pos= [pos[0], pos[1], pos[2]])
+                print(pred, pos, np.mean(pred), cutoff, sasa)
+                k += 1
+    
     # write out grid file
     coor = "%s_pruned_grid.xyz"%(outname)
     xyz = cmd.get_coords('tmpPoint', 1)

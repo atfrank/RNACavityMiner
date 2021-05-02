@@ -61,7 +61,6 @@ cavy=${coory}
 cavz=${coorz}
 echo "finished determining center.."
 
-
 if [[ -s ${cavityFile} ]]
 then
     echo "preparting to featurize.."
@@ -73,14 +72,13 @@ then
     sed -i 's/UNL/UNK/g' cavity_decoy.pdb
     sed -i 's/LIG/UNK/g' cavity_decoy.pdb
     babel -ipdb cavity_decoy.pdb -omol2 cavity_decoy.mol2 &> /dev/null
-
+    
     # create complex native
     grep -v 'TER' receptor.pdb | grep -v 'END' > complex_cavity_decoy.pdb
     echo "TER" >> complex_cavity_decoy.pdb
     grep 'HETATM' cavity_decoy.pdb >> complex_cavity_decoy.pdb
     echo "END" >> complex_cavity_decoy.pdb
     
-
     # featurize decoy cavity
     echo "started featurizing.."
     ${CAVITYMINER}/bin/featurize \
