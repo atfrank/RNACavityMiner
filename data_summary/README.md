@@ -181,7 +181,7 @@
 <td halign="center" style="word-wrap: break-word;" valign="top">
   <p>
     <a href="images/1LC4.gif">
-      <img src="images/1LC4.gif" style="width:240px" style="height:240px"alt="1LC4-poses-file">
+      <img src="images/1LC4.gif" style="width:120px" style="height:120px"alt="1LC4-poses-file">
     </a><br>
   </p>
 </td>
