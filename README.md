@@ -1,5 +1,5 @@
 # RNACavityMiner
-RNACavityMiner: Classifiers to Mine For Druggable Binding Cavity in RNA
+RNACavityMiner: Classifiers to Mine For Ligandable Binding Cavity in RNA
 
 ## Prerequisite
 * [GCC 8.2.0]()
@@ -38,13 +38,13 @@ rm -rf RNAPosers
 ```
 
 ### Using RNACavityMiner
-Main script is `src/miner.sh`. It requires a pdb file containing RNA 3D structure as input.
+Main script is `src/miner_grid.sh`. It requires a pdb file containing RNA 3D structure as input.
 Example:
 ```
 conda activate cavityminer
 export CAVITYMINER="/path/to/RNACavityMiner/"
 cd test/
-./../src/miner.sh 1ANR_1.pdb
+./../src/miner_grid.sh 1ANR_1.pdb
 ```
 The predicted cavities and their corresponding scores are written in file `receptor/predicted_cavities.txt`.
 
@@ -64,7 +64,7 @@ pdb,tag,cavityID,x,y,z,pred_MLP,pred_XGB,pred_RF,pred_LR,pred_Extra
 1ANR_1,none,11,9.750,-3.000,5.750,0.000,0.001,0.131,0.001,0.215
 ```
 ## Publications
-* Jingru Xie, and Aaron T. Frank. "Mining For Druggable Cavities in RNA" (In preparation)
+* Jingru Xie, and Aaron T. Frank. "Mining For Ligandable Cavities in RNA" (In preparation)
 
 ## Data and ML-Code
 * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4049068.svg)](https://doi.org/10.5281/zenodo.4049068)
