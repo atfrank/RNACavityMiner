@@ -23,7 +23,7 @@ def check_file(file):
         except:
             return False
 
-def prune_grid(rna, score_file, outname, cutoff = 0.99):
+def prune_grid(rna, score_file, outname, quantile = 0.99, sasa_cutoff = 20.0):
     # make sure all atoms within an object occlude one another
     cmd.flag("ignore", "none")
 
@@ -35,7 +35,7 @@ def prune_grid(rna, score_file, outname, cutoff = 0.99):
     k = 1
     df = pd.read_csv(score_file, header = 0, sep = ",")
     means = df[['pred_MLP','pred_XGB','pred_RF','pred_LR','pred_Extra']].apply(np.mean, 'columns')
-    cutoff = np.quantile(a=means, q=cutoff)
+    cutoff = np.quantile(a=means, q=quantile)
     
     for pred, pos in zip(df[['pred_MLP','pred_XGB','pred_RF','pred_LR','pred_Extra']].values, df[['x','y','z']].values):
         if np.mean(pred) > cutoff:
@@ -44,7 +44,8 @@ def prune_grid(rna, score_file, outname, cutoff = 0.99):
             cmd.create("complextmp", "%s tmpPoint3"%rna)
             sasa = cmd.get_area('resn UNK and not polymer and complextmp')
             cmd.delete("complextmp tmpPoint3")
-            if sasa < 30.0:
+            # remove really highly exposed points
+            if sasa < sasa_cutoff:
                 cmd.pseudoatom("tmpPoint", hetatm = 1, b = np.mean(pred), q = sasa, name="C", resn = "UNK", resi=k, chain="ZZ", pos= [pos[0], pos[1], pos[2]])
                 print(pred, pos, np.mean(pred), cutoff, sasa)
                 k += 1
@@ -70,5 +71,5 @@ if __name__ == "__main__":
     # parse command line
     a = parser.parse_args()
     cmd.load(a.coord_in, "receptor")
-    prune_grid(rna = "receptor", score_file = a.score_in, outname = a.coord_out)
+    prune_grid(rna = "receptor", score_file = a.score_in, outname = a.coord_out, quantile = 0.95, sasa_cutoff = 10.0)
 
