@@ -10,7 +10,6 @@ RNACavityMiner: Classifiers to Mine For Ligandable Binding Cavity in RNA
 
 * [PyMOL](https://pymol.org/). For first time PyMOL users: you will need a [PyMOL license file](https://pymol.org/2/buy.html?q=buy), as PyMOL is a commercial software.
 
-* see `environment.yml`
 
 ## Quick Start
 ```
@@ -21,9 +20,16 @@ cd RNACavityMiner/
 
 #### Python Modules
 ```
-conda create -n cavityminer --file environment.yml -c conda-forge -c bioconda -c schrodinger
+conda create -n cavityminer
 conda activate cavityminer
-pip install --user scikit-learn==0.22.2.post1
+
+conda install -c schrodinger pymol -y
+conda install -c conda-forge openbabel
+conda install -c bioconda rxdock -y
+conda install pandas
+
+ip install --user --force scikit-learn==0.22.2.post1
+pip install --user --force xgboost==0.90 
 ```
 
 #### RNAPosers
