@@ -22,7 +22,6 @@ pml=${CAVITYMINER}/py/fix_receptor.pml
 predictPy=${CAVITYMINER}/py/predict.py
 model=${DIRMODEL}/models.pkl
 cavityID="none"
-cavityFile=receptor_grid.xyz
 
 # get command line arguments
 initialPDB=$1
@@ -38,6 +37,7 @@ cp -v ${initialPDB} ${workingDIR}/.
 cd ${workingDIR}
 outFile=${workingDIR}/predicted_cavities.txt
 featureFile=${workingDIR}/features.csv
+cavityFile=${workingDIR}/receptor_grid.xyz
 
 # generate grid file
 echo "started making grids.."
@@ -46,7 +46,7 @@ echo "finished making grids.."
 
 # generate MOL2
 echo "started converting coordinate file to MOL2.."
-babel -ipdb ${initialPDB} -omol2 receptor.mol2 &> /dev/null
+babel -ipdb ${initialPDB} -omol2 receptor.mol2 #&> /dev/null
 echo "finished converting coordinate file to MOL2.."
 
 # get center
@@ -68,10 +68,11 @@ then
     echo "${ncav}         " > cavity_decoy.xyz
     echo "decoys" >> cavity_decoy.xyz
     cat ${cavityFile} >> cavity_decoy.xyz
-    babel -ixyz cavity_decoy.xyz -opdb cavity_decoy.pdb &> /dev/null
-    sed -i 's/UNL/UNK/g' cavity_decoy.pdb
-    sed -i 's/LIG/UNK/g' cavity_decoy.pdb
-    babel -ipdb cavity_decoy.pdb -omol2 cavity_decoy.mol2 &> /dev/null
+    babel -ixyz cavity_decoy.xyz -opdb cavity_decoy.pdb #&> /dev/null
+    sed 's/UNL/UNK/g' cavity_decoy.pdb | sed 's/LIG/UNK/g' > cavity_decoy_tmp.pdb
+    mv cavity_decoy_tmp.pdb cavity_decoy.pdb
+    
+    babel -ipdb cavity_decoy.pdb -omol2 cavity_decoy.mol2 #&> /dev/null
     
     # create complex native
     grep -v 'TER' receptor.pdb | grep -v 'END' > complex_cavity_decoy.pdb
@@ -98,9 +99,10 @@ then
     
     # compute ligandability
     echo "now estimating ligandability.."
-    python ${predictPy} ${model} ${featureFile} ${cavityFile} ${outFile} 1 &> /dev/null
+    python ${predictPy} ${model} ${featureFile} ${cavityFile} ${outFile} 1 #&> /dev/null
     cat ${outFile}
     
     echo "starting to prune grids"
     python ${CAVITYMINER}/py/grid_pruner.py  -c ${initialPDB} -s ${outFile} -o receptor
+    
 fi
