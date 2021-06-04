@@ -91,7 +91,7 @@ then
         -outfile raw_feature \
         -rowatm "`echo ${rowatms}`" \
         -selatm "`echo ${selatms}`"\
-        -mol2 cavity_decoy.mol2 complex_cavity_decoy.pdb > /dev/null
+        -mol2 cavity_decoy.mol2 complex_cavity_decoy.pdb #> /dev/null
     
     # process features
     echo "processing features.."
