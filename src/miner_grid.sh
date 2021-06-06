@@ -95,7 +95,7 @@ then
     
     # process features
     echo "processing features.."
-    paste <(awk -v model=${cavityID} -v x=${cavx} -v y=${cavy} -v z=${cavz} -v rna=${rna} '{print rna, model, sqrt(($2-x)*($2-x)+($3-y)*($3-y)+($4-z)*($4-z))}' ${cavityFile}) <(cat raw_feature.txt | grep -v 'atmid') >> ${featureFile}
+    paste <(awk -v model=${cavityID} -v x=${cavx} -v y=${cavy} -v z=${cavz} -v rna=${rna} '{print rna, model, sqrt(($2-x)*($2-x)+($3-y)*($3-y)+($4-z)*($4-z))}' ${cavityFile}) <(cat raw_feature.txt | grep -v 'atmid') | sed 's/,/./g' >> ${featureFile}
     
     # compute ligandability
     echo "now estimating ligandability.."
