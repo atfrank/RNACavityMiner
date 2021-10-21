@@ -34,7 +34,7 @@ pip install --user --force xgboost==0.90
 
 #### RNAPosers
 ```
-git clone --depth=1 git@github.com:atfrank/RNAPosers.git
+git clone https://github.com/atfrank/RNAPosers.git
 cd RNAPosers/
 make clean
 make
