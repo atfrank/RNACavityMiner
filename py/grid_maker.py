@@ -5,7 +5,9 @@ import pandas as pd
 import numpy as np
 from glob import glob
 from pymol import cmd, CmdException
+from numba import jit
 import itertools as it
+from tqdm import tqdm
 
 def logic(index, skip):
         """ check modulus """
@@ -36,7 +38,7 @@ def generate_grid(rna, outname = "test", grid_size = 2, padding = 2.0, mindist =
     
     # place pseudoatoms along grid
     k=1
-    for ix in range(nx):
+    for ix in tqdm(range(nx)):
         for iy in range(ny):
             for iz in range(nz):
                 cmd.pseudoatom("tmpPoint", hetatm = 1, name="C", resn = "UNK", resi=k, chain="ZZ", pos=[float(xx[ix, iy, iz]), float(yy[ix, iy, iz]), float(zz[ix, iy, iz])])
@@ -69,4 +71,5 @@ if __name__ == "__main__":
     # parse command line
     a = parser.parse_args()
     cmd.load(a.coord_in, "receptor")
+    cmd.remove("hydrogen")
     generate_grid(rna = "receptor", outname = a.coord_out, grid_size = 2.0, padding = 2.0, mindist = 2.5, maxdist = 5, debug = False)

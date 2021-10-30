@@ -22,7 +22,6 @@ pml=${CAVITYMINER}/py/fix_receptor.pml
 predictPy=${CAVITYMINER}/py/predict.py
 model=${DIRMODEL}/models.pkl
 cavityID="none"
-cavityFile=receptor_grid.xyz
 
 # get command line arguments
 initialPDB=$1
@@ -38,6 +37,7 @@ cp -v ${initialPDB} ${workingDIR}/.
 cd ${workingDIR}
 outFile=${workingDIR}/predicted_cavities.txt
 featureFile=${workingDIR}/features.csv
+cavityFile=${workingDIR}/receptor_grid.xyz
 
 # generate grid file
 echo "started making grids.."
@@ -98,9 +98,10 @@ then
     
     # compute ligandability
     echo "now estimating ligandability.."
-    python ${predictPy} ${model} ${featureFile} ${cavityFile} ${outFile} 1 &> /dev/null
+    python ${predictPy} ${model} ${featureFile} ${cavityFile} ${outFile} 1 #&> /dev/null
     cat ${outFile}
     
     echo "starting to prune grids"
     python ${CAVITYMINER}/py/grid_pruner.py  -c ${initialPDB} -s ${outFile} -o receptor
+    
 fi

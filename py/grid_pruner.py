@@ -23,6 +23,19 @@ def check_file(file):
         except:
             return False
 
+def remove_isolated(obj="resn UNK and name C", cutoff = 5):
+	atoms = cmd.get_model(obj)
+	for at in atoms.atom:
+		distances = []
+		for bt in atoms.atom:
+			distance = np.sqrt((at.coord[0]-bt.coord[0])**2 +  (at.coord[1]-bt.coord[1])**2 + (at.coord[2]-bt.coord[2])**2)
+			if distance != 0.0 and distance < cutoff: distances.append(distance)
+		if len(distances) < 4:
+			sele = "resn %s and resi %s and name %s"%(at.resn, at.resi, at.name)
+			print(sele)
+			cmd.remove(sele)
+			atoms = cmd.get_model(obj)
+
 def prune_grid(rna, score_file, outname, quantile = 0.99, sasa_cutoff = 20.0):
     # make sure all atoms within an object occlude one another
     cmd.flag("ignore", "none")
@@ -49,7 +62,9 @@ def prune_grid(rna, score_file, outname, quantile = 0.99, sasa_cutoff = 20.0):
                 cmd.pseudoatom("tmpPoint", hetatm = 1, b = np.mean(pred), q = sasa, name="C", resn = "UNK", resi=k, chain="ZZ", pos= [pos[0], pos[1], pos[2]])
                 print(pred, pos, np.mean(pred), cutoff, sasa)
                 k += 1
-    
+    # remove isolated
+    remove_isolated()
+ 
     # write out grid file
     coor = "%s_pruned_grid.xyz"%(outname)
     xyz = cmd.get_coords('tmpPoint', 1)
@@ -61,6 +76,8 @@ def prune_grid(rna, score_file, outname, quantile = 0.99, sasa_cutoff = 20.0):
     cmd.create("complex", "%s tmpPoint"%rna)
     coor = "%s_pruned_grid.pdb"%(outname)
     cmd.save(coor, "complex")
+    coor = "cavity_pruned_grid.sd"
+    cmd.save(coor, "tmpPoint")
  
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -71,5 +88,5 @@ if __name__ == "__main__":
     # parse command line
     a = parser.parse_args()
     cmd.load(a.coord_in, "receptor")
-    prune_grid(rna = "receptor", score_file = a.score_in, outname = a.coord_out, quantile = 0.95, sasa_cutoff = 10.0)
+    prune_grid(rna = "receptor", score_file = a.score_in, outname = a.coord_out, quantile = 0.80, sasa_cutoff = 10.0)
 
