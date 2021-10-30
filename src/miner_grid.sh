@@ -46,7 +46,7 @@ echo "finished making grids.."
 
 # generate MOL2
 echo "started converting coordinate file to MOL2.."
-babel -ipdb ${initialPDB} -omol2 receptor.mol2 &> /dev/null
+obabel -ipdb ${initialPDB} -omol2 -O receptor.mol2 #&> /dev/null
 echo "finished converting coordinate file to MOL2.."
 
 # get center
@@ -68,10 +68,11 @@ then
     echo "${ncav}         " > cavity_decoy.xyz
     echo "decoys" >> cavity_decoy.xyz
     cat ${cavityFile} >> cavity_decoy.xyz
-    babel -ixyz cavity_decoy.xyz -opdb cavity_decoy.pdb &> /dev/null
-    sed -i 's/UNL/UNK/g' cavity_decoy.pdb
-    sed -i 's/LIG/UNK/g' cavity_decoy.pdb
-    babel -ipdb cavity_decoy.pdb -omol2 cavity_decoy.mol2 &> /dev/null
+    obabel -ixyz cavity_decoy.xyz -opdb -O cavity_decoy.pdb #&> /dev/null
+    sed 's/UNL/UNK/g' cavity_decoy.pdb | sed 's/LIG/UNK/g' > cavity_decoy_tmp.pdb
+    mv cavity_decoy_tmp.pdb cavity_decoy.pdb
+    
+    obabel -ipdb cavity_decoy.pdb -omol2 -O cavity_decoy.mol2 #&> /dev/null
     
     # create complex native
     grep -v 'TER' receptor.pdb | grep -v 'END' > complex_cavity_decoy.pdb
@@ -90,11 +91,11 @@ then
         -outfile raw_feature \
         -rowatm "`echo ${rowatms}`" \
         -selatm "`echo ${selatms}`"\
-        -mol2 cavity_decoy.mol2 complex_cavity_decoy.pdb > /dev/null
+        -mol2 cavity_decoy.mol2 complex_cavity_decoy.pdb #> /dev/null
     
     # process features
     echo "processing features.."
-    paste <(awk -v model=${cavityID} -v x=${cavx} -v y=${cavy} -v z=${cavz} -v rna=${rna} '{print rna, model, sqrt(($2-x)*($2-x)+($3-y)*($3-y)+($4-z)*($4-z))}' ${cavityFile}) <(cat raw_feature.txt | grep -v 'atmid') >> ${featureFile}
+    paste <(awk -v model=${cavityID} -v x=${cavx} -v y=${cavy} -v z=${cavz} -v rna=${rna} '{print rna, model, sqrt(($2-x)*($2-x)+($3-y)*($3-y)+($4-z)*($4-z))}' ${cavityFile}) <(cat raw_feature.txt | grep -v 'atmid') | sed 's/,/./g' >> ${featureFile}
     
     # compute ligandability
     echo "now estimating ligandability.."
