@@ -62,9 +62,6 @@ def prune_grid(rna, score_file, outname, quantile = 0.99, sasa_cutoff = 20.0):
                 cmd.pseudoatom("tmpPoint", hetatm = 1, b = np.mean(pred), q = sasa, name="C", resn = "UNK", resi=k, chain="ZZ", pos= [pos[0], pos[1], pos[2]])
                 print(pred, pos, np.mean(pred), cutoff, sasa)
                 k += 1
-    # remove isolated
-    remove_isolated()
- 
     # write out grid file
     coor = "%s_pruned_grid.xyz"%(outname)
     xyz = cmd.get_coords('tmpPoint', 1)
@@ -78,6 +75,24 @@ def prune_grid(rna, score_file, outname, quantile = 0.99, sasa_cutoff = 20.0):
     cmd.save(coor, "complex")
     coor = "cavity_pruned_grid.sd"
     cmd.save(coor, "tmpPoint")
+
+    # remove isolated
+    remove_isolated()
+
+    # write out grid file
+    coor = "%s_pruned_grid_clusters.xyz"%(outname)
+    xyz = cmd.get_coords('tmpPoint', 1)
+    df = pd.DataFrame.from_records(xyz)
+    df.insert(0, "element", "C")
+    df.to_csv(coor, index = False, header = False, sep = " ")
+
+    # write out complex
+    cmd.create("complex", "%s tmpPoint"%rna)
+    coor = "%s_pruned_grid_clusters.pdb"%(outname)
+    cmd.save(coor, "complex")
+    coor = "cavity_pruned_grid.sd"
+    cmd.save(coor, "tmpPoint")
+
  
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
