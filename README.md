@@ -75,16 +75,5 @@ pdb     tag   cavityID      x       y          z      pred_MLP  pred_XGB   pred_
 ## Data and ML-Code
 * [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4049068.svg)](https://doi.org/10.5281/zenodo.4049068)
 
-## COMMERCIAL USE LICENSE: 
-
-If you are interested in commercial licensing of these applications (clinical, operational, etc.) please contact the University of Michigan Office of Technology Transfer for a quote and licensing options.
-
-Drew Bennett - https://techtransfer.umich.edu/team/drew-bennett/
-
-or
-
-techtransfer@umich.edu
-
-
 
 
