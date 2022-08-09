@@ -27,6 +27,8 @@ conda install -c schrodinger pymol -y
 conda install -c conda-forge openbabel
 conda install -c bioconda rxdock -y
 conda install pandas
+conda install numba
+conda install tqdm
 
 pip install --user --force scikit-learn==0.22.2.post1
 pip install --user --force xgboost==0.90 
