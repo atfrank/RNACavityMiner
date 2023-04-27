@@ -20,18 +20,14 @@ cd RNACavityMiner/
 
 #### Python Modules
 ```
-conda create -n cavityminer
+conda create -n cavityminer python=3.7
 conda activate cavityminer
-
-conda install -c schrodinger pymol -y
+conda install -c schrodinger pymol=2.4 -y
 conda install -c conda-forge openbabel
 conda install -c bioconda rxdock -y
-conda install pandas
-conda install numba
-conda install tqdm
-
+conda install pandas numba tqdm -y
 pip install --user --force scikit-learn==0.22.2.post1
-pip install --user --force xgboost==0.90 
+pip install --user --force xgboost==0.90
 ```
 
 #### RNAPosers
