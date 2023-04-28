@@ -25,7 +25,7 @@ conda activate cavityminer
 conda install -c schrodinger pymol=2.4 -y
 conda install -c conda-forge openbabel
 conda install -c bioconda rxdock -y
-conda install pandas numba tqdm -y
+conda install pandas tqdm -y
 pip install --user --force scikit-learn==0.22.2.post1
 pip install --user --force xgboost==0.90
 ```
