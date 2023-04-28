@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 from glob import glob
 from pymol import cmd, CmdException
-from numba import jit
 import itertools as it
 from tqdm import tqdm
 
