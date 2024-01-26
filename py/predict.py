@@ -2,7 +2,9 @@
 import pandas as pd
 import numpy as np
 import sys
-from sklearn.externals import joblib
+import joblib as joblib
+#from sklearn.externals import joblib
+pd.options.mode.chained_assignment = None
 
 def get_data(dataset, threshold = 6.0, info_col = list(range(1,6)), label_col = 2):
     dataset['label'] = dataset[label_col] <= threshold
@@ -32,7 +34,8 @@ def main():
     # append cavity centers
     dims = [' ', 'x', 'y', 'z']
     for i in range(1, len(dims)):
-        info[dims[i]] = cavities[i].values
+        #info[dims[i]] = cavities[i].values
+        info.loc[:, dims[i]] = cavities[i].values
 
     # rename columns and clean up
     info = info.drop([2,4,5], axis=1)
