@@ -11,8 +11,8 @@ cd RNACavityMiner/
 
 #### Python Modules
 ```
-conda create -n cavityminer_new python=3.10
-conda activate cavityminer_new
+conda create -n cavityminer python=3.10
+conda activate cavityminer
 conda install -c conda-forge -c schrodinger pymol-bundle openbabel pandas tqdm pip pyarrow
 pip3 install scikit-learn xgboost joblib
 ```
