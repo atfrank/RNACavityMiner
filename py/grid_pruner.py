@@ -28,9 +28,13 @@ def make_profile(profile_name, obj="resn UNK and name C", rna_obj = 'complex', c
     """ 
     Generates a ligandability profile, i.e., ligandability as a function of residue position    
     """
+    # get info for probe sites
     atoms1 = cmd.get_model(obj)
+    
+    # initialize profile dictionary
     profile = {"%s"%(at.resi): 0 for at in cmd.get_model("name C1' and polymer.nucleic and %s"%(rna_obj)).atom}
-    print(profile)
+    
+    # loop over probe and find nearby RNA atoms
     for at in atoms1.atom:
         sele = "br. polymer.nucleic and %s within %s of (resn %s and resi %s and name %s)"%(rna_obj, cutoff+2, at.resn, at.resi, at.name)       
         atoms2 = cmd.get_model(sele)
@@ -39,11 +43,9 @@ def make_profile(profile_name, obj="resn UNK and name C", rna_obj = 'complex', c
         for bt in atoms2.atom:          
             resi = bt.resi
             distance = np.sqrt((at.coord[0]-bt.coord[0])**2 +  (at.coord[1]-bt.coord[1])**2 + (at.coord[2]-bt.coord[2])**2)
+            # scale ligandability using a exponential decay function
             sij = ligandability*np.exp(-(distance/cutoff)**2)
             profile[resi] += sij
-            #print(at.q, sele)
-            #if distance < cutoff: print(distance, sele)
-    print(profile)  
     df = pd.DataFrame.from_records([{"residue": key, "ligandability": profile[key]} for key in profile.keys()])
     df.to_csv(profile_name, index=False)
     return(profile)
